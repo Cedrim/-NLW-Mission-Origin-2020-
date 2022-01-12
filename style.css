@@ -1,0 +1,567 @@
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ RESET GLOBAL ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* margin: cima&embaixo ex: 10rem / laterais ex: 10rem */
+}
+
+ul {
+  list-style: none; /* Tirar bolinha de marcação do "place content" */
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: auto;
+  height: auto;
+}
+
+/* hr {
+  width: 100%;
+  position: relative;
+} */
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ VARIABLES ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+:root {
+  --header-height: 4.5rem;
+  /* Best blue color =   --color: rgb(76, 196, 252);    */
+  /* HSL color mode */
+  --hue: 187;
+  --base-color: hsl(var(--hue) 36% 57%);
+  --base-color-second: hsl(var(--hue) 65% 88%);
+  --base-color-alt: hsl(var(--hue) 57% 53%);
+  --title-color: hsl(var(--hue) 41% 10%);
+  --text-color: hsl(0 0% 46%);
+  --text-color-light: hsl(0 0% 98%);
+  --body-color: hsl(0 0% 98%);
+
+  /* Fonts */
+  --title-font-size: 2rem;
+  --subtitle-font-size: 1.5rem;
+  --title-font: 'Poppins', sans-serif;
+  --body-font: 'DM Sans', sans-serif;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ BASE ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+html {
+  scroll-behavior: smooth; /* Rolagem gostosinha ao clicar */
+}
+
+body {
+  font: 400 1rem 'DM Sans', sans-serif;
+  color: var(--text-color);
+  background: var(--body-color);
+  -webkit-font-smoothing: antialiased;
+}
+.title {
+  font: 700 1.875rem 'Poppins', sans-serif;
+  color: var(--title-color);
+  -webkit-font-smoothing: auto; /* Deixar fonte mais suave */
+}
+
+.button {
+  background-color: limegreen;
+  color: whitesmoke solid;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  transition: background 0.5s;
+}
+
+.button:hover {
+  background: lightseagreen;
+}
+
+.divider-1 {
+  /* Criar linha estilizada abaixo */
+  height: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(
+    /* Coloração gradual da cor. Ex: Azul para branco */ 270deg,
+    hsla(var(--hue), 65%, 88%, 0.34),
+    hsla(var(--hue), 36%, 57%, 1)
+  );
+}
+
+.divider-2 {
+  height: 0.5rem;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 36%, 57%, 1),
+    hsla(var(--hue), 65%, 88%, 0.34)
+  );
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ LOGO ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+#header {
+  height: 4.5rem;
+  border-bottom: 5px solid limegreen;
+  margin-bottom: 2rem;
+  display: flex;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: fixed; /* Header fixo e desce com scroll */
+  z-index: 100;
+  background-color: var(--body-color);
+}
+
+.logo {
+  font: 700 1.875rem 'Poppins', sans-serif;
+  font-size: 1.4rem;
+}
+.logo span {
+  color: var(--base-color);
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ NAVIGATION ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+main {
+  margin-top: var(--header-height);
+}
+
+nav {
+  width: 100%;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Outro lado da tela   */
+}
+
+nav .menu {
+  opacity: 0;
+  visibility: hidden;
+}
+
+nav ul li {
+  text-align: center;
+}
+
+nav ul li a:hover,
+nav ul li a.active:hover {
+  /* "hover" Passar mouse em cima */
+  color: var(--base-color);
+  transition: color 0.3s; /* Transição somente na cor das variáveis "a"  */
+  position: relative; /* Pai "relativo" referente a posição absoluta */
+  font-weight: bold;
+}
+
+nav ul li a::after /* Transição do tracinho embaixo  */ {
+  /* Os 2 pontos "::after" é por ser elemento extra. Hover é apenas um ponto ":" */
+  content: '';
+  height: 5%;
+  width: 0%;
+  background: var(--base-color);
+  position: absolute; /* Absoluta em relação à um pai "relativo" */
+  border-radius: 5rem;
+  left: 0;
+  bottom: -0.5rem;
+  transition: 0.3s;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+nav ul li a.active:after {
+  width: 100%;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ TOGGLE MENU ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+nav .icon-close {
+  visibility: hidden;
+  opacity: 0;
+  position: relative;
+}
+
+nav.show div.icon-close {
+  visibility: visible;
+  opacity: 1;
+}
+
+.toggle {
+  color: lightseagreen;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ SHOW MENU MOBILE ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+nav.show .menu {
+  opacity: 1;
+  visibility: visible;
+  background: var(--body-color);
+  height: 100vh; /* Ocupar altura de toda a página */
+  width: 100vw; /* Ocupar largura de toda a página */
+  position: fixed; /* Acompanha subida e descida de mouse */
+  top: 0; /* Ir para extrema direita da página */
+  left: 0; /* Ir para extrema esquerda da página */
+  place-content: center; /* Agrupa lista ao centro */
+  display: grid;
+}
+
+.container {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  width: 100%;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.section .title {
+  /* Quebra de linha em todos os "title" */
+  margin-bottom: 2rem;
+}
+
+.section header {
+  margin-bottom: 2rem;
+}
+.section header strong {
+  color: lightseagreen;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ HOME ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+#home {
+  overflow: hidden;
+}
+
+#home .container {
+  margin: 0;
+}
+
+#home .image {
+  position: relative;
+}
+
+#home .image::before {
+  content: '';
+  height: 100%;
+  width: 90%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -15%;
+  left: 15%;
+  z-index: 0; /* Eixo X (Horizontal) Eixo Y (Vertical) Eixo Z (Profundidade) = Imagem sobrepõe a outra */
+  border-radius: 2rem;
+}
+
+#home .image img {
+  position: relative; /* Necessário para empurrar imagens */
+  right: 3rem; /* Empurrar imagem para o lado */
+  border-radius: 2rem;
+}
+
+#home .text {
+  margin-left: 2rem;
+  margin-right: 2rem;
+  text-align: center;
+}
+
+#home .text h1,
+p {
+  margin-bottom: 2rem;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ ABOUT ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+#header #about {
+  height: 4.5rem;
+  border-bottom: 5px solid limegreen;
+  margin-bottom: 2rem;
+  display: flex;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  background-color: var(--body-color);
+}
+
+#about .container {
+  margin: 0;
+}
+
+#about .image {
+  position: relative;
+}
+
+#about .image::before {
+  content: '';
+  height: 100%;
+  width: 120%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -10%;
+  left: 15%;
+  z-index: 0; /* Eixo X (Horizontal) Eixo Y (Vertical) Eixo Z (Profundidade) = Imagem sobrepõe a outra */
+  border-radius: 2rem;
+}
+
+#about .image img {
+  position: relative; /* Necessário para empurrar imagens */
+  right: 3rem; /* Empurrar imagem para o lado */
+  border-radius: 2rem;
+  height: 100%;
+  width: 130%;
+}
+
+#about .text {
+  margin-left: 10rem;
+  margin-right: 2rem;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ SERVICES ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+.card {
+  /* Editando o box dos "serviços" */
+  padding: 4rem;
+  box-shadow: 2px 2px 6px 6px lightskyblue; /* Colorir sombra das bordas */
+  width: 80%;
+  margin-left: 4rem;
+  text-align: center;
+  border-radius: 1rem 1rem 1rem 1rem;
+  background: whitesmoke;
+}
+
+.card i {
+  /* Editando os icones */
+  display: block;
+  color: blueviolet;
+  font-size: 5rem;
+  margin-bottom: 2rem;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ TESTIMONIALS ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+#testimonials blockquote {
+  background: whitesmoke;
+  padding: 3rem;
+  border-radius: 3rem;
+  box-shadow: 2px 2px 6px 6px lightskyblue;
+  margin-bottom: 2rem;
+  /*width: 50%;
+   margin-left: 11rem; */
+}
+
+#testimonials blockquote p {
+  text-align: relative;
+  font: 500 1.5rem serif;
+}
+#testimonials blockquote span {
+  text-align: center;
+  font: 500 3rem serif;
+}
+
+#testimonials cite {
+  /* Centralizar nome das clientes ao lado da imagem */
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+  font-style: normal; /* padrão é itálico */
+}
+
+#testimonials cite img {
+  height: 7rem;
+  width: 7rem;
+  object-fit: cover; /* Encaixar imagem no espaço de "img" */
+  clip-path: ellipse(); /* Imagem circular */
+  margin-right: 1.5rem;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ CONTACTS ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+#contact .text p {
+  margin-bottom: 5rem;
+}
+
+#contact .button i {
+  margin-right: 0.5rem;
+}
+
+#contact .icon-phone,
+.icon-map-pin,
+.icon-mail {
+  color: palevioletred;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ SWIPER ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+.swiper-slide {
+  height: auto;
+  padding: 5rem 5rem;
+}
+
+.swiper-pagination-bullet {
+  /* Tamanho bolinha slide */
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ FOOTER ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+#footer {
+  background: rgb(169, 209, 169);
+}
+
+#footer .logo {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+#footer i {
+  font-size: 1.8rem;
+  color: rgb(8, 56, 185);
+  margin-right: 4rem;
+}
+
+#footer .social a {
+  display: inline-block;
+  transition: 0.5s;
+}
+
+#footer .social a:hover {
+  transform: translateY(-15px);
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ BACK TO TOP ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+.back-to-top {
+  background: lightpink;
+  position: fixed;
+  padding: 0.5rem;
+  right: 1rem;
+  bottom: 0.5rem;
+  clip-path: circle();
+
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.3s;
+
+  transform: translateY(100%); /* Botão aparecer de cima para baixo */
+}
+
+.back-to-top.show {
+  /* Seta aparecer */
+  visibility: visible;
+  opacity: 1;
+
+  transform: translateY(0); /* Botão aparecer de cima para baixo */
+}
+
+/*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ MEDIA QUERIES ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+/* Extra large devices: > 1200 */
+@media (min-width: 1200px) {
+  /*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ REUSABLE CLASSES ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ */
+
+  .container {
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section {
+    padding: 10rem 0;
+  }
+
+  .section header {
+    max-width: 30rem;
+  }
+
+  .button {
+    height: 3rem;
+  }
+
+  /*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ NAVIGATION ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+  nav .menu {
+    opacity: 1;
+    visibility: visible;
+    top: 0;
+  }
+
+  nav .menu ul {
+    display: flex;
+    gap: 3rem;
+  }
+
+  nav .menu ul li a.title {
+    font: 600 1.3rem var(--body-font);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav .menu ul li a.active {
+    font-weight: bold;
+    -webkit-font-smoothing: auto;
+  }
+
+  nav .icon-menu {
+    display: none; /* Retirar ícone quando em tela grande (+1200) */
+  }
+
+  /*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ HOME ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+  #home .container {
+    grid-auto-flow: column;
+    justify-content: space-between;
+  }
+
+  #home .image {
+    order: 1; /* Ordem dos itens na #home */
+  }
+
+  #home .text {
+    order: 0;
+  }
+
+  /*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ ABOUT ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+  #about .container {
+    margin: 0 auto; /* (0) = Encima&Baixo / (auto) = Laterais */
+    grid-auto-flow: column;
+    text-align: left;
+  }
+
+  /*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ SERVICES ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr; /* Dividir coluna em frações ex: 3x */
+  }
+
+  /*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ TESTIMONIALS ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+
+  #testimonials .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /*◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘ CONTACT?? ◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘◘*/
+}
+/*   Large devices: > 1023 */
+@media (min-width: 1023px) {
+}
+/*   Large devices: > 992>  */
+@media (min-width: 992px) {
+  :root {
+    --title-font-size: 2.5rem;
+    --subtitle-font-size: 1.2rem;
+  }
+}
+/*   Medium devices: > 767 */
+@media (min-width: 767px) {
+}
